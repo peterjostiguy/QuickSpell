@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		444DDB261D8DB41600653F83 /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 444DDB241D8DB41600653F83 /* GameKitHelper.m */; };
+		444DDB2C1D904A8000653F83 /* LandingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 444DDB2B1D904A8000653F83 /* LandingPageViewController.swift */; };
+		44AC06591D8DA3AE0020E854 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44AC06581D8DA3AE0020E854 /* GameKit.framework */; };
 		44B0721A1D8B1C1D0052DFCA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B072191D8B1C1D0052DFCA /* AppDelegate.swift */; };
 		44B0721C1D8B1C1D0052DFCA /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 44B0721B1D8B1C1D0052DFCA /* art.scnassets */; };
 		44B0721E1D8B1C1D0052DFCA /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B0721D1D8B1C1D0052DFCA /* GameViewController.swift */; };
@@ -15,6 +18,9 @@
 		44B072261D8B1C1D0052DFCA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44B072241D8B1C1D0052DFCA /* LaunchScreen.storyboard */; };
 		44B072311D8B1C1E0052DFCA /* QuickWordsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B072301D8B1C1E0052DFCA /* QuickWordsTests.swift */; };
 		44B0723C1D8B1C1E0052DFCA /* QuickWordsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B0723B1D8B1C1E0052DFCA /* QuickWordsUITests.swift */; };
+		44B072871D8B22730052DFCA /* Letters in Resources */ = {isa = PBXBuildFile; fileRef = 44B072861D8B22730052DFCA /* Letters */; };
+		44B072891D8B22F80052DFCA /* Vowels in Resources */ = {isa = PBXBuildFile; fileRef = 44B072881D8B22F80052DFCA /* Vowels */; };
+		44B0728B1D8B23940052DFCA /* Backgrounds in Resources */ = {isa = PBXBuildFile; fileRef = 44B0728A1D8B23940052DFCA /* Backgrounds */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		444DDB241D8DB41600653F83 /* GameKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKitHelper.m; sourceTree = "<group>"; };
+		444DDB251D8DB41600653F83 /* QuickWords-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QuickWords-Bridging-Header.h"; sourceTree = "<group>"; };
+		444DDB2B1D904A8000653F83 /* LandingPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandingPageViewController.swift; sourceTree = "<group>"; };
+		44AC06581D8DA3AE0020E854 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		44B072161D8B1C1D0052DFCA /* QuickWords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuickWords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B072191D8B1C1D0052DFCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44B0721B1D8B1C1D0052DFCA /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -49,6 +59,9 @@
 		44B072371D8B1C1E0052DFCA /* QuickWordsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuickWordsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B0723B1D8B1C1E0052DFCA /* QuickWordsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickWordsUITests.swift; sourceTree = "<group>"; };
 		44B0723D1D8B1C1E0052DFCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44B072861D8B22730052DFCA /* Letters */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Letters; sourceTree = "<group>"; };
+		44B072881D8B22F80052DFCA /* Vowels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Vowels; sourceTree = "<group>"; };
+		44B0728A1D8B23940052DFCA /* Backgrounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Backgrounds; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44AC06591D8DA3AE0020E854 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,9 +90,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		444DDB231D8DB40600653F83 /* GameKit */ = {
+			isa = PBXGroup;
+			children = (
+				444DDB241D8DB41600653F83 /* GameKitHelper.m */,
+				444DDB251D8DB41600653F83 /* QuickWords-Bridging-Header.h */,
+			);
+			name = GameKit;
+			sourceTree = "<group>";
+		};
 		44B0720D1D8B1C1D0052DFCA = {
 			isa = PBXGroup;
 			children = (
+				44AC06581D8DA3AE0020E854 /* GameKit.framework */,
 				44B072181D8B1C1D0052DFCA /* QuickWords */,
 				44B0722F1D8B1C1E0052DFCA /* QuickWordsTests */,
 				44B0723A1D8B1C1E0052DFCA /* QuickWordsUITests */,
@@ -99,13 +123,18 @@
 		44B072181D8B1C1D0052DFCA /* QuickWords */ = {
 			isa = PBXGroup;
 			children = (
+				444DDB231D8DB40600653F83 /* GameKit */,
+				44B072881D8B22F80052DFCA /* Vowels */,
+				44B072861D8B22730052DFCA /* Letters */,
 				44B072191D8B1C1D0052DFCA /* AppDelegate.swift */,
+				44B0728A1D8B23940052DFCA /* Backgrounds */,
 				44B0721B1D8B1C1D0052DFCA /* art.scnassets */,
 				44B0721D1D8B1C1D0052DFCA /* GameViewController.swift */,
 				44B0721F1D8B1C1D0052DFCA /* Main.storyboard */,
 				44B072221D8B1C1D0052DFCA /* Assets.xcassets */,
 				44B072241D8B1C1D0052DFCA /* LaunchScreen.storyboard */,
 				44B072271D8B1C1D0052DFCA /* Info.plist */,
+				444DDB2B1D904A8000653F83 /* LandingPageViewController.swift */,
 			);
 			path = QuickWords;
 			sourceTree = "<group>";
@@ -196,16 +225,24 @@
 				TargetAttributes = {
 					44B072151D8B1C1D0052DFCA = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = A5L29JV5VS;
+						DevelopmentTeam = 2WXU3W6GS3;
+						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+						};
 					};
 					44B0722B1D8B1C1E0052DFCA = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = A5L29JV5VS;
+						LastSwiftMigration = 0800;
 						TestTargetID = 44B072151D8B1C1D0052DFCA;
 					};
 					44B072361D8B1C1E0052DFCA = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = A5L29JV5VS;
+						LastSwiftMigration = 0800;
 						TestTargetID = 44B072151D8B1C1D0052DFCA;
 					};
 				};
@@ -235,9 +272,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44B0728B1D8B23940052DFCA /* Backgrounds in Resources */,
 				44B0721C1D8B1C1D0052DFCA /* art.scnassets in Resources */,
 				44B072261D8B1C1D0052DFCA /* LaunchScreen.storyboard in Resources */,
 				44B072231D8B1C1D0052DFCA /* Assets.xcassets in Resources */,
+				44B072871D8B22730052DFCA /* Letters in Resources */,
+				44B072891D8B22F80052DFCA /* Vowels in Resources */,
 				44B072211D8B1C1D0052DFCA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,8 +303,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				444DDB261D8DB41600653F83 /* GameKitHelper.m in Sources */,
 				44B0721E1D8B1C1D0052DFCA /* GameViewController.swift in Sources */,
 				44B0721A1D8B1C1D0052DFCA /* AppDelegate.swift in Sources */,
+				444DDB2C1D904A8000653F83 /* LandingPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,10 +450,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QuickWords/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = peterostiguy.QuickWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "QuickWords/QuickWords-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -419,10 +466,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = QuickWords/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = peterostiguy.QuickWords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "QuickWords/QuickWords-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
@@ -435,6 +486,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = peterostiguy.QuickWordsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuickWords.app/QuickWords";
 			};
 			name = Debug;
@@ -447,6 +499,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = peterostiguy.QuickWordsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuickWords.app/QuickWords";
 			};
 			name = Release;
@@ -459,6 +512,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = peterostiguy.QuickWordsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = QuickWords;
 			};
 			name = Debug;
@@ -470,6 +524,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = peterostiguy.QuickWordsUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 2.3;
 				TEST_TARGET_NAME = QuickWords;
 			};
 			name = Release;
@@ -493,6 +548,7 @@
 				44B072421D8B1C1E0052DFCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		44B072431D8B1C1E0052DFCA /* Build configuration list for PBXNativeTarget "QuickWordsTests" */ = {
 			isa = XCConfigurationList;
@@ -501,6 +557,7 @@
 				44B072451D8B1C1E0052DFCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		44B072461D8B1C1E0052DFCA /* Build configuration list for PBXNativeTarget "QuickWordsUITests" */ = {
 			isa = XCConfigurationList;
@@ -509,6 +566,7 @@
 				44B072481D8B1C1E0052DFCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
