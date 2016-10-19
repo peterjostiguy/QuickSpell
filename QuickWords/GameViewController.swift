@@ -106,7 +106,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             matchRequest: r
         )
         vc.turnBasedMatchmakerDelegate = self
-        self.presentViewController(vc, animated: true, completion: nil)
+//        self.presentViewController(vc, animated: true, completion: nil)
 //        self.dismissViewControllerAnimated(true, completion: nil)
         
         
