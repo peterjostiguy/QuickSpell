@@ -92,6 +92,11 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval,
+                                                       target: self,
+                                                       selector: #selector(GameViewController.timerDidEnd(_:)),
+                                                       userInfo: chosenWord,
+                                                       repeats: true)
         
         let r = GKMatchRequest()
         r.minPlayers = 2
@@ -102,12 +107,10 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         )
         vc.turnBasedMatchmakerDelegate = self
         self.presentViewController(vc, animated: true, completion: nil)
-        //      self.dismissViewControllerAnimated(true, completion: nil)
+//        self.dismissViewControllerAnimated(true, completion: nil)
         
         
-        
-        
-       // presentViewController(vc, animated: true, completion: nil)
+    
         
         
         let fm = NSFileManager.defaultManager()
@@ -166,6 +169,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         spawnTile4()
         spawnTile5()
         spawnTile6()
+
     }
     
     override func shouldAutorotate() -> Bool {
@@ -194,7 +198,6 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         timerText.scale = SCNVector3Make(0.3, 0.3, 0.3)
         timerText.name = "shelf"
         text.materials.first?.diffuse.contents = UIColor.blackColor()
-        //        text.font = UIFont(name: "Helvatica", size: 30)
     }
     
     func setupText() {
@@ -205,7 +208,6 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         finalText.scale = SCNVector3Make(0.3, 0.3, 0.3)
         text.materials.first?.diffuse.contents = UIColor.blackColor()
         finalText.name = "shelf"
-        //        text.font = UIFont(name: "Helvatica", size: 30)
     }
     
     func setupScene() {
@@ -609,53 +611,6 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                 hideTile6()
                 createWord()
                 checkWord()
-//                setupText()
-//                spawnReplayR()
-//                spawnReplayE()
-//                spawnReplayP()
-//                spawnReplayL()
-//                spawnReplayA()
-//                spawnReplayY()
-                
-//                let lengthOfWord = finalWord.characters.count
-//                //                var text = SCNText()
-//                if  lengthOfWord < 4 {
-//                    let text = SCNText(string: "Your word is \n        " + finalWord, extrusionDepth: 1)
-//                    finalText.geometry = text
-//                    finalText.position = SCNVector3(x: -2.7, y: -1.3, z: 0.5)
-//                    finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-//                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
-//                    let font = UIFont(name: "Times New Roman", size: 10.0)
-//                    text.font = font
-//                    text.alignmentMode = kCAAlignmentCenter
-//                    finalText.geometry = text
-////                    timerOn = false
-//                }
-//                else if lengthOfWord == 4{
-//                    let text = SCNText(string: "Your word is \n      " + finalWord, extrusionDepth: 1)
-//                    finalText.geometry = text
-//                    finalText.position = SCNVector3(x: -2.7, y: -1.3, z: 0.5)
-//                    finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-//                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
-//                    let font = UIFont(name: "Times New Roman", size: 10.0)
-//                    text.font = font
-//                    text.alignmentMode = kCAAlignmentCenter
-//                    finalText.geometry = text
-////                    timerOn = false
-//                    
-//                }
-//                else if lengthOfWord < 7{
-//                    let text = SCNText(string: "Your word is \n    " + finalWord, extrusionDepth: 1)
-//                    finalText.geometry = text
-//                    finalText.position = SCNVector3(x: -2.7, y: -1.1, z: 0.5)
-//                    finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-//                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
-//                    let font = UIFont(name: "Times New Roman", size: 10.0)
-//                    text.font = font
-//                    text.alignmentMode = kCAAlignmentCenter
-//                    finalText.geometry = text
-////                    timerOn = false
-//                }
             }
             else {
                 let text = SCNText(string: timeString(timeCount), extrusionDepth: 1)
@@ -807,6 +762,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                 self.findScore()
                 print(self.wordScore)
                 self.saveHighscore(self.wordScore)
+                self.displayScore(self.wordScore)
                 
                 
                 //                var text = SCNText()
@@ -885,24 +841,26 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                 }
             }
-//            self.setupText()
             self.spawnReplayR()
             self.spawnReplayE()
             self.spawnReplayP()
             self.spawnReplayL()
             self.spawnReplayA()
             self.spawnReplayY()
-           //            do {
-//                if let convertedJsonIntoDict = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary {
-//                    print(convertedJsonIntoDict)
-//                }
-//            } catch let error as NSError {
-//                print(error.localizedDescription)
-//            }
             
         }
         self.setupText()
         task.resume()
+    }
+    
+    func displayScore(score:Int){
+        let text = SCNText(string: "\(score) pts", extrusionDepth: 1)
+        timerText.geometry = text
+        timerText.position = SCNVector3(x: -2.9, y: 6.0, z: 0.5)
+        scnScene.rootNode.addChildNode(timerText)
+        timerText.scale = SCNVector3Make(0.2, 0.2, 0.2)
+        timerText.name = "shelf"
+        text.materials.first?.diffuse.contents = UIColor.blackColor()
     }
     
     func saveHighscore(score:Int) {

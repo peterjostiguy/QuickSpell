@@ -18,45 +18,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hi!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQ5-8h-wcL">
-                                <frame key="frameInset" minX="177" minY="241" width="21" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsy-IZ-P7B">
+                                <frame key="frameInset" minX="67" minY="310" width="241" height="96"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dsy-IZ-P7B">
-                                <frame key="frameInset" minX="146" minY="307" width="83" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Start Game!"/>
+                                <state key="normal" title="Start Game!" image="T.jpeg"/>
                                 <connections>
                                     <segue destination="BV1-FR-VrT" kind="show" id="9zt-Qv-gsR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joI-ec-beF">
-                                <frame key="frameInset" minX="144" minY="383" width="87" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joI-ec-beF">
+                                <frame key="frameInset" minX="45" minY="474" width="285" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Leaderboard"/>
+                                <state key="normal" title="Leaderboard" image="O.jpeg"/>
                                 <connections>
                                     <action selector="showLeaderboard:" destination="NNA-ui-ReE" eventType="touchUpInside" id="49m-Cp-MGO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41n-tF-goU">
-                                <frame key="frameInset" minX="127" minY="464" width="120" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Rg-CY-h1V">
+                                <frame key="frameInset" minX="93" minY="28" width="188" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Multiplayer Game"/>
-                                <connections>
-                                    <action selector="multiplayerButton:" destination="NNA-ui-ReE" eventType="touchUpInside" id="pC5-Yr-yyA"/>
-                                    <segue destination="BV1-FR-VrT" kind="show" id="j3u-mW-ebo"/>
-                                </connections>
+                                <state key="normal" title="Button" image="C.jpeg"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QuickSpell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OxW-sG-En6">
+                                <frame key="frameInset" minX="138" minY="228" width="98" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="leaderButton" destination="joI-ec-beF" id="Dbh-bB-Irs"/>
+                        <outlet property="logoButton" destination="0Rg-CY-h1V" id="MOf-Uc-LoB"/>
+                        <outlet property="startButton" destination="Dsy-IZ-P7B" id="7JV-UJ-QGn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="prr-E3-eMj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-535" y="303"/>
+            <point key="canvasLocation" x="-535.20000000000005" y="302.6986506746627"/>
         </scene>
         <!--Game View Controller-->
         <scene sceneID="tXr-a1-R10">
@@ -76,7 +77,9 @@
             <point key="canvasLocation" x="359" y="43"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="j3u-mW-ebo"/>
-    </inferredMetricsTieBreakers>
+    <resources>
+        <image name="C.jpeg" width="185" height="186"/>
+        <image name="O.jpeg" width="191" height="190"/>
+        <image name="T.jpeg" width="188" height="194"/>
+    </resources>
 </document>

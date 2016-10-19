@@ -14,9 +14,11 @@ import GameKit;
 
 class LandingPageViewController: UIViewController, GKGameCenterControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate {
     
+    @IBOutlet weak var logoButton: UIButton!
 
-    
-
+    @IBOutlet weak var logoPlaceholder: UIImageView!
+    @IBOutlet weak var leaderButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
     @IBAction func showLeaderboard(sender: AnyObject) {
         showLeader()
     }
@@ -114,6 +116,9 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         authenticateLocalPlayer()
+        startButton.setImage(UIImage(named: "Backgrounds/Start.png"), forState: .Normal)
+        leaderButton.setImage(UIImage(named: "Backgrounds/Leaders.png"), forState: .Normal)
+        logoButton.setImage(UIImage(named: "Backgrounds/logo.png"), forState: .Normal)
     }
     
 
