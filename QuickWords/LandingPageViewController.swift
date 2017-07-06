@@ -19,14 +19,14 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
     @IBOutlet weak var logoPlaceholder: UIImageView!
     @IBOutlet weak var leaderButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
-    @IBAction func showLeaderboard(sender: AnyObject) {
+    @IBAction func showLeaderboard(_ sender: AnyObject) {
         showLeader()
     }
     
-    func saveHighscore(score:Int) {
+    func saveHighscore(_ score:Int) {
         
         //check if user is signed in
-        if GKLocalPlayer.localPlayer().authenticated {
+        if GKLocalPlayer.localPlayer().isAuthenticated {
             
             
             let scoreReporter = GKScore(leaderboardIdentifier: "LightningWordLeaderboard") //leaderboard id here
@@ -35,11 +35,11 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
             
             let scoreArray: [GKScore] = [scoreReporter]
             
-            GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError?) -> Void in
+            GKScore.report(scoreArray, withCompletionHandler: {(error : NSError?) -> Void in
                 if error != nil {
                     print("error")
                 }
-            })
+            } as! (Error?) -> Void)
             
         }
         
@@ -49,18 +49,18 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
       //  let vc = self.view?.window?.rootViewController
         let gc = GKGameCenterViewController()
         gc.gameCenterDelegate = self
-        self.presentViewController(gc, animated: true, completion: nil)
+        self.present(gc, animated: true, completion: nil)
     }
     
 
     
-    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
+    func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController)
     {
-    gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+    gameCenterViewController.dismiss(animated: true, completion: nil)
 }
 
     
-    @IBAction func multiplayerButton(sender: AnyObject) {
+    @IBAction func multiplayerButton(_ sender: AnyObject) {
         let r = GKMatchRequest()
         r.minPlayers = 2
         r.maxPlayers = 2
@@ -69,15 +69,15 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
             matchRequest: r
         )
         vc.turnBasedMatchmakerDelegate = self
-        self.presentViewController(vc, animated: true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
   //      self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, didFailWithError error: NSError) {
+    func turnBasedMatchmakerViewController(_ viewController: GKTurnBasedMatchmakerViewController, didFailWithError error: Error) {
         print(error)
     }
     
-    func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController) {}
+    func turnBasedMatchmakerViewControllerWasCancelled(_ viewController: GKTurnBasedMatchmakerViewController) {}
  //       let vc = GKTurnBasedMatchmakerViewController(
  //       )
  //       vc.turnBasedMatchmakerDelegate = self
@@ -93,7 +93,7 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
   //      print("match found!")
   //  }
     
-    func updateMatchData(matchData: GKTurnBasedMatch) {
+    func updateMatchData(_ matchData: GKTurnBasedMatch) {
         print("HELLO!!!!")
         print(matchData.participants)
     //currentMatch?.endTurnWithNextParticipants(
@@ -105,20 +105,20 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
         
    }
     
-    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, didFindMatch match: GKTurnBasedMatch) {
+    func turnBasedMatchmakerViewController(_ viewController: GKTurnBasedMatchmakerViewController, didFind match: GKTurnBasedMatch) {
 //        dismissViewControllerAnimated(true) { self.updateMatchData(match) }
     }
     
-    func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
+    func player(_ player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
  //       updateMatchData(match)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         authenticateLocalPlayer()
-        startButton.setImage(UIImage(named: "Backgrounds/Start.png"), forState: .Normal)
-        leaderButton.setImage(UIImage(named: "Backgrounds/Leaders.png"), forState: .Normal)
-        logoButton.setImage(UIImage(named: "Backgrounds/logo.png"), forState: .Normal)
+        startButton.setImage(UIImage(named: "Backgrounds/Start.png"), for: UIControlState())
+        leaderButton.setImage(UIImage(named: "Backgrounds/Leaders.png"), for: UIControlState())
+        logoButton.setImage(UIImage(named: "Backgrounds/logo.png"), for: UIControlState())
     }
     
 
@@ -136,11 +136,11 @@ class LandingPageViewController: UIViewController, GKGameCenterControllerDelegat
         localPlayer.authenticateHandler = {(viewController, error) -> Void in
             
             if (viewController != nil) {
-                self.presentViewController(viewController!, animated: true, completion: nil)
+                self.present(viewController!, animated: true, completion: nil)
             }
                 
             else {
-                print((GKLocalPlayer.localPlayer().authenticated))
+                print((GKLocalPlayer.localPlayer().isAuthenticated))
             }
         }
         

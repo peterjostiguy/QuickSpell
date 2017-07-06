@@ -164,6 +164,10 @@ NSString *const LocalPlayerIsAuthenticated = @"local_player_authenticated";
             _matchStarted = NO;
             [_delegate matchEnded];
             break;
+            
+        case GKPlayerStateUnknown:
+            NSLog(@"State Unknown");
+            break;
     }
 }
 

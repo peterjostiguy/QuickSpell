@@ -18,12 +18,12 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
     
 
     
-    func updateMatchData(matchData: GKTurnBasedMatch) {
+    func updateMatchData(_ matchData: GKTurnBasedMatch) {
         print("HELLO!!!!")
         print(matchData.participants![1])
         let opponent = matchData.participants![1]
        // matchData.endTurnWithNextParticipants([opponent], turnTimeout: GKTurnTimeoutDefault, matchData: matchData, completionHandler: nil)
-        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval,
+        timer = Timer.scheduledTimer(timeInterval: timeInterval,
                                                        target: self,
                                                        selector: #selector(GameViewController.timerDidEnd(_:)),
                                                        userInfo: chosenWord,
@@ -37,20 +37,20 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         
     }
     
-    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, didFindMatch match: GKTurnBasedMatch) {
-        dismissViewControllerAnimated(true) { self.updateMatchData(match) }
+    func turnBasedMatchmakerViewController(_ viewController: GKTurnBasedMatchmakerViewController, didFind match: GKTurnBasedMatch) {
+        dismiss(animated: true) { self.updateMatchData(match) }
     }
     
-    func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
+    func player(_ player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
         updateMatchData(match)
     }
 
     
-    func turnBasedMatchmakerViewController(viewController: GKTurnBasedMatchmakerViewController, didFailWithError error: NSError) {
+    func turnBasedMatchmakerViewController(_ viewController: GKTurnBasedMatchmakerViewController, didFailWithError error: Error) {
         print(error)
     }
     
-    func turnBasedMatchmakerViewControllerWasCancelled(viewController: GKTurnBasedMatchmakerViewController) {print("cancelled")}
+    func turnBasedMatchmakerViewControllerWasCancelled(_ viewController: GKTurnBasedMatchmakerViewController) {print("cancelled")}
 
     
     var scnView: SCNView!
@@ -83,16 +83,16 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
     
     var isWordValid = Bool()
     
-    var timer = NSTimer()
-    let timeInterval:NSTimeInterval = 1.0
-    let timerEnd:NSTimeInterval = 10.0
-    var timeCount:NSTimeInterval = 10.0
+    var timer = Timer()
+    let timeInterval:TimeInterval = 1.0
+    let timerEnd:TimeInterval = 10.0
+    var timeCount:TimeInterval = 10.0
     var timerOn = true
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval,
+        timer = Timer.scheduledTimer(timeInterval: timeInterval,
                                                        target: self,
                                                        selector: #selector(GameViewController.timerDidEnd(_:)),
                                                        userInfo: chosenWord,
@@ -113,20 +113,20 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
     
         
         
-        let fm = NSFileManager.defaultManager()
-        let path = NSBundle.mainBundle().resourcePath!
-        let letters = try! fm.contentsOfDirectoryAtPath(path + "/Letters")
-        let vowels = try! fm.contentsOfDirectoryAtPath(path + "/Vowels")
+        let fm = FileManager.default
+        let path = Bundle.main.resourcePath!
+        let letters = try! fm.contentsOfDirectory(atPath: path + "/Letters")
+        let vowels = try! fm.contentsOfDirectory(atPath: path + "/Vowels")
         
         for letter in letters {
             if letter.hasSuffix("jpeg") {
-                let letterTitle = letter.stringByReplacingOccurrencesOfString(".jpeg", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let letterTitle = letter.replacingOccurrences(of: ".jpeg", with: "", options: NSString.CompareOptions.literal, range: nil)
                 letterList.append(letterTitle)
             }
         }
         for vowel in vowels {
             if vowel.hasSuffix("jpeg") {
-                let vowelTitle = vowel.stringByReplacingOccurrencesOfString(".jpeg", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+                let vowelTitle = vowel.replacingOccurrences(of: ".jpeg", with: "", options: NSString.CompareOptions.literal, range: nil)
                 vowelList.append(vowelTitle)
             }
         }
@@ -159,8 +159,8 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         givenLetters = []
         finalWord = ""
         wordScore = 0
-        letterList = GKRandomSource.sharedRandom().arrayByShufflingObjectsInArray(letterList) as! [String]
-        vowelList = GKRandomSource.sharedRandom().arrayByShufflingObjectsInArray(vowelList) as! [String]
+        letterList = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: letterList) as! [String]
+        vowelList = GKRandomSource.sharedRandom().arrayByShufflingObjects(in: vowelList) as! [String]
         givenLetters += letterList[0...5]
         letterPlacementArray = letterList
         spawnTile1()
@@ -172,11 +172,11 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
 
     }
     
-    override func shouldAutorotate() -> Bool {
+    override var shouldAutorotate : Bool {
         return true
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
     
@@ -197,7 +197,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         scnScene.rootNode.addChildNode(timerText)
         timerText.scale = SCNVector3Make(0.3, 0.3, 0.3)
         timerText.name = "shelf"
-        text.materials.first?.diffuse.contents = UIColor.blackColor()
+        text.materials.first?.diffuse.contents = UIColor.black
     }
     
     func setupText() {
@@ -206,7 +206,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         finalText.position = SCNVector3(x: -1.15, y: 6.0, z: 0.5)
         scnScene.rootNode.addChildNode(finalText)
         finalText.scale = SCNVector3Make(0.3, 0.3, 0.3)
-        text.materials.first?.diffuse.contents = UIColor.blackColor()
+        text.materials.first?.diffuse.contents = UIColor.black
         finalText.name = "shelf"
     }
     
@@ -216,7 +216,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         scnScene.background.contents = UIImage(named: "Backgrounds/wall.jpg")
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
-        ambientLightNode.light!.type = SCNLightTypeAmbient
+        ambientLightNode.light!.type = SCNLight.LightType.ambient
         ambientLightNode.light!.color = UIColor(white: 0.40, alpha: 0.7)
         scnScene.rootNode.addChildNode(ambientLightNode)
 //        scnView.allowsCameraControl = true
@@ -234,7 +234,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         if tile1.opacity < 1.0 && Double(tile1.position.x) > Double(removedNodePosition) {
             let newPosition = tile1.position.x - 1.2
             tile1.position = SCNVector3(x: newPosition, y: 2.5, z: 0.0)
-            tile1.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            tile1.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             tile1.opacity = tile1.opacity + 0.01
         }
     }
@@ -242,7 +242,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         if tile2.opacity < 1.0 && Double(tile2.position.x) > Double(removedNodePosition){
             let newPosition = (tile2.position.x - 1.2)
             tile2.position = SCNVector3(x: newPosition, y: 2.5, z: 0.0)
-            tile2.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            tile2.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             tile2.opacity = tile2.opacity + 0.01
         }
     }
@@ -250,7 +250,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         if tile3.opacity < 1.0 && Double(tile3.position.x) > Double(removedNodePosition){
             let newPosition = tile3.position.x - 1.2
             tile3.position = SCNVector3(x: newPosition, y: 2.5, z: 0.0)
-            tile3.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            tile3.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             tile3.opacity = tile3.opacity + 0.01
         }
     }
@@ -258,7 +258,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         if tile4.opacity < 1.0 && Double(tile4.position.x) > Double(removedNodePosition){
             let newPosition = tile4.position.x - 1.2
             tile4.position = SCNVector3(x: newPosition, y: 2.5, z: 0.0)
-            tile4.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            tile4.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             tile4.opacity = tile4.opacity + 0.01
         }
     }
@@ -266,7 +266,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         if tile5.opacity < 1.0 && Double(tile5.position.x) > Double(removedNodePosition) {
             let newPosition = tile5.position.x - 1.2
             tile5.position = SCNVector3(x: newPosition, y: 2.5, z: 0.0)
-            tile5.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            tile5.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             tile5.opacity = tile5.opacity + 0.01
             
         }
@@ -275,7 +275,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         if tile6.opacity < 1.0 && Double(tile6.position.x) > Double(removedNodePosition){
             let newPosition = tile6.position.x - 1.2
             tile6.position = SCNVector3(x: newPosition, y: 2.5, z: 0.0)
-            tile6.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            tile6.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             tile6.opacity = tile6.opacity + 0.01
         }
     }
@@ -295,7 +295,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         tile1 = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(tile1)
-        tile1.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        tile1.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Vowels/"+"\(vowelList[0])"+".jpeg")
         tile1.position = SCNVector3(x: 2.6, y: -2.25, z: 0.3)
         tile1.name = vowelList[0]
@@ -305,7 +305,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         tile2 = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(tile2)
-        tile2.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        tile2.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Vowels/"+"\(vowelList[1])"+".jpeg")
         tile2.position = SCNVector3(x: -0.9, y: -2.25, z: 2.1)
         tile2.name = vowelList[1]
@@ -315,7 +315,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         tile3 = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(tile3)
-        tile3.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        tile3.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/"+"\(givenLetters[2])"+".jpeg")
         tile3.position = SCNVector3(x: -3.3, y: -2.25, z: 0.5)
         tile3.name = givenLetters[2]
@@ -325,7 +325,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         tile4 = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(tile4)
-        tile4.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        tile4.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/"+"\(givenLetters[3])"+".jpeg")
         tile4.position = SCNVector3(x: 1.5, y: -2.25, z: 0.8)
         tile4.name = givenLetters[3]
@@ -335,7 +335,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         tile5 = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(tile5)
-        tile5.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        tile5.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/"+"\(givenLetters[4])"+".jpeg")
         tile5.position = SCNVector3(x: 0.0, y: -2.25, z: 0.0)
         tile5.name = givenLetters[4]
@@ -345,7 +345,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         tile6 = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(tile6)
-        tile6.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        tile6.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         tile6.position = SCNVector3(x: -1.8, y: -2.25, z: -1.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/"+"\(givenLetters[5])"+".jpeg")
         tile6.name = givenLetters[5]
@@ -356,7 +356,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         replayR = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(replayR)
-        replayR.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        replayR.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         replayR.position = SCNVector3(x: -3.0, y: -2.25, z: 2.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/R.jpeg")
         replayR.name = "replay"
@@ -366,7 +366,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         replayE = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(replayE)
-        replayE.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        replayE.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         replayE.position = SCNVector3(x: -1.8, y: -2.0, z: 2.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/E.jpeg")
         replayE.name = "replay"
@@ -376,7 +376,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         replayP = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(replayP)
-        replayP.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        replayP.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         replayP.position = SCNVector3(x: -0.6, y: -1.75, z: 2.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/P.jpeg")
         replayP.name = "replay"
@@ -386,7 +386,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         replayL = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(replayL)
-        replayL.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        replayL.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         replayL.position = SCNVector3(x: 0.6, y: -1.5, z: 2.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/L.jpeg")
         replayL.name = "replay"
@@ -396,7 +396,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         replayA = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(replayA)
-        replayA.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        replayA.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         replayA.position = SCNVector3(x: 1.8, y: -1.25, z: 2.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/A.jpeg")
         replayA.name = "replay"
@@ -406,7 +406,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 1.2, height: 1.2, length: 1.2, chamferRadius: 0.1)
         replayY = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(replayY)
-        replayY.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+        replayY.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         replayY.position = SCNVector3(x: 3.0, y: -1.0, z: 2.1)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Letters/Y.jpeg")
         replayY.name = "replay"
@@ -417,7 +417,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 30.0, height: 0.1, length: 11.0, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.position = SCNVector3(x: 0.0, y: -3.0, z: 0.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/carpet.jpg")
         geometryNode.name = "floor"
@@ -428,7 +428,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 8.6, height: 0.3, length: 8.0, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.position = SCNVector3(x: 0.0, y: 1.6, z: -3.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/wood.jpg")
         geometryNode.name = "shelf"
@@ -439,7 +439,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 8.6, height: 8.1, length: 0.1, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.position = SCNVector3(x: 0.0, y: 1.4, z: -4.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/wood.jpg")
         geometryNode.name = "shelf"
@@ -450,7 +450,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 0.3, height: 8.5, length: 8.0, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.position = SCNVector3(x: -4.2, y: 1.4, z: -3.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/wood.jpg")
         geometryNode.name = "shelf"
@@ -460,7 +460,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 0.3, height: 8.5, length: 8.0, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.position = SCNVector3(x: 4.2, y: 1.4, z: -3.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/wood.jpg")
         geometryNode.name = "shelf"
@@ -471,7 +471,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 8.6, height: 0.3, length: 8.0, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.physicsBody!.friction = 0.1
         geometryNode.position = SCNVector3(x: 0.0, y: 5.4, z: -3.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/wood.jpg")
@@ -482,7 +482,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         geometry = SCNBox(width: 8.6, height: 0.3, length: 8.0, chamferRadius: 0.0)
         let geometryNode = SCNNode(geometry: geometry)
         scnScene.rootNode.addChildNode(geometryNode)
-        geometryNode.physicsBody = SCNPhysicsBody(type: .Static, shape: nil)
+        geometryNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         geometryNode.physicsBody!.friction = 0.1
         geometryNode.position = SCNVector3(x: 0.0, y: -2.8, z: -3.0)
         geometry.materials.first?.diffuse.contents = UIImage(named: "Backgrounds/wood.jpg")
@@ -490,17 +490,17 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
     }
     
     
-    func handleTouchFor(node: SCNNode) {
+    func handleTouchFor(_ node: SCNNode) {
         if node.name == "escape" {
             print("escape!")
-            performSegueWithIdentifier("tileEscapeSegue", sender: tileEscape)
+            performSegue(withIdentifier: "tileEscapeSegue", sender: tileEscape)
         }
         
         else if node.name != "floor" && node.name != "shelf" && node.opacity == 1.0 && node.name != "replay"{
             node.opacity = 0.99 - (0.01 * CGFloat(chosenWord.count))
             let blockXPlacement = -3.2 + Double(chosenWord.count) * 1.3
             node.position = SCNVector3(x: Float(blockXPlacement), y: 2.5, z: 0.0)
-            node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+            node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             node.physicsBody!.mass = 25.0
             node.physicsBody!.allowsResting = true
             chosenWord.append(node.name!)
@@ -509,22 +509,22 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             removedNodePosition = node.position.x
             let removedNodeOpacity = Double(node.opacity)
             if removedNodeOpacity < 1.0 && removedNodeOpacity > 0.985 {
-                chosenWord.removeAtIndex(0)
+                chosenWord.remove(at: 0)
             }
             else if removedNodeOpacity < 0.985 && removedNodeOpacity > 0.975 {
-                chosenWord.removeAtIndex(1)
+                chosenWord.remove(at: 1)
             }
             else if removedNodeOpacity < 0.975 && removedNodeOpacity > 0.965 {
-                chosenWord.removeAtIndex(2)
+                chosenWord.remove(at: 2)
             }
             else if removedNodeOpacity < 0.965 && removedNodeOpacity > 0.955 {
-                chosenWord.removeAtIndex(3)
+                chosenWord.remove(at: 3)
             }
             else if removedNodeOpacity < 0.955 && removedNodeOpacity > 0.945 {
-                chosenWord.removeAtIndex(4)
+                chosenWord.remove(at: 4)
             }
             else if removedNodeOpacity < 0.945 && removedNodeOpacity > 0.935 {
-                chosenWord.removeAtIndex(5)
+                chosenWord.remove(at: 5)
             }
             node.opacity = 1.0
             changeTile1()
@@ -535,27 +535,27 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             changeTile6()
             if node.name == tile1.name{
                 node.position = SCNVector3(x: 2.6, y: -1.75, z: 0.3)
-                node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+                node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             }
             else if node.name == tile2.name{
                 node.position = SCNVector3(x: -0.9, y: -1.75, z: 2.1)
-                node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+                node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             }
             else if node.name == tile3.name{
                 node.position = SCNVector3(x: -3.3, y: -1.75, z: 0.5)
-                node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+                node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             }
             else if node.name == tile4.name{
                 node.position = SCNVector3(x: 1.5, y: -1.75, z: 0.8)
-                node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+                node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             }
             else if node.name == tile5.name{
                 node.position = SCNVector3(x: 0.0, y: -1.75, z: 0.0)
-                node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+                node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             }
             else if node.name == tile6.name{
                 node.position = SCNVector3(x: -1.8, y: -1.75, z: -1.1)
-                node.physicsBody = SCNPhysicsBody(type: .Dynamic, shape: nil)
+                node.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
             }
         }
         else if node.name == "replay"{
@@ -571,7 +571,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             timer.invalidate()
             timeCount = 10
             timerOn = true
-            timer = NSTimer.scheduledTimerWithTimeInterval(timeInterval,
+            timer = Timer.scheduledTimer(timeInterval: timeInterval,
                                                            target: self,
                                                            selector: #selector(GameViewController.timerDidEnd(_:)),
                                                            userInfo: chosenWord,
@@ -581,9 +581,9 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first!
-        let location = touch.locationInView(scnView)
+        let location = touch.location(in: scnView)
         let hitResults = scnView.hitTest(location, options: nil)
         if hitResults.count > 0 {
             let result = hitResults.first!
@@ -591,13 +591,13 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         }
     }
     
-    func timeString(time:NSTimeInterval) -> String {
+    func timeString(_ time:TimeInterval) -> String {
         let minutes = Int(time) / 60
         let seconds = time - Double(minutes) * 60
         return String(format:"%01i",Int(seconds))
     }
     
-    func timerDidEnd(timer:NSTimer){
+    func timerDidEnd(_ timer:Timer){
         timeCount = timeCount - timeInterval
         if timerOn == true {
             if timeCount <= 0 {
@@ -614,7 +614,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             }
             else {
                 let text = SCNText(string: timeString(timeCount), extrusionDepth: 1)
-                text.materials.first?.diffuse.contents = UIColor.blackColor()
+                text.materials.first?.diffuse.contents = UIColor.black
                 timerText.geometry = text
             }
         }
@@ -746,16 +746,16 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
     func checkWord() {
         let scriptUrl = "https://dictionary.yandex.net/api/v1/dicservice.json/lookup?key=dict.1.1.20160524T165204Z.14c112c0d0312cef.fa4f3cb65f43e438c70fe5681b51dd96c9247e1a&lang=en-ru&text="
         let urlWithParams = scriptUrl + finalWord
-        let myUrl = NSURL(string: urlWithParams)
-        let request = NSMutableURLRequest(URL:myUrl!)
-        request.HTTPMethod = "GET"
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request){
+        let myUrl = URL(string: urlWithParams)
+        let request = NSMutableURLRequest(url:myUrl!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
             if error != nil{
                 print("error= \(error)")
                 return
             }
-            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
             let lengthOfWord = self.finalWord.characters.count
             if responseString!.length > 25 {
                 self.isWordValid = true
@@ -771,7 +771,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                     self.finalText.position = SCNVector3(x: -2.7, y: -1.3, z: 0.5)
                     self.finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
+                    text.materials.first?.diffuse.contents = UIColor.white
                     let font = UIFont(name: "Times New Roman", size: 10.0)
                     text.font = font
                     text.alignmentMode = kCAAlignmentCenter
@@ -783,7 +783,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                     self.finalText.position = SCNVector3(x: -2.7, y: -1.3, z: 0.5)
                     self.finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
+                    text.materials.first?.diffuse.contents = UIColor.white
                     let font = UIFont(name: "Times New Roman", size: 10.0)
                     text.font = font
                     text.alignmentMode = kCAAlignmentCenter
@@ -796,7 +796,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                     self.finalText.position = SCNVector3(x: -2.7, y: -1.1, z: 0.5)
                     self.finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
+                    text.materials.first?.diffuse.contents = UIColor.white
                     let font = UIFont(name: "Times New Roman", size: 10.0)
                     text.font = font
                     text.alignmentMode = kCAAlignmentCenter
@@ -811,7 +811,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                     self.finalText.position = SCNVector3(x: -2.7, y: -1.1, z: 0.5)
                     self.finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
+                    text.materials.first?.diffuse.contents = UIColor.white
                     let font = UIFont(name: "Times New Roman", size: 10.0)
                     text.font = font
                     text.alignmentMode = kCAAlignmentCenter
@@ -822,7 +822,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                     self.finalText.position = SCNVector3(x: -2.7, y: -1.1, z: 0.5)
                     self.finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
+                    text.materials.first?.diffuse.contents = UIColor.white
                     let font = UIFont(name: "Times New Roman", size: 10.0)
                     text.font = font
                     text.alignmentMode = kCAAlignmentCenter
@@ -834,7 +834,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
                     self.finalText.geometry = text
                     self.finalText.position = SCNVector3(x: -2.7, y: -1.1, z: 0.5)
                     self.finalText.scale = SCNVector3Make(0.098, 0.098, 0.098)
-                    text.materials.first?.diffuse.contents = UIColor.whiteColor()
+                    text.materials.first?.diffuse.contents = UIColor.white
                     let font = UIFont(name: "Times New Roman", size: 10.0)
                     text.font = font
                     text.alignmentMode = kCAAlignmentCenter
@@ -853,20 +853,20 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         task.resume()
     }
     
-    func displayScore(score:Int){
+    func displayScore(_ score:Int){
         let text = SCNText(string: "\(score) pts", extrusionDepth: 1)
         timerText.geometry = text
         timerText.position = SCNVector3(x: -2.9, y: 6.0, z: 0.5)
         scnScene.rootNode.addChildNode(timerText)
         timerText.scale = SCNVector3Make(0.2, 0.2, 0.2)
         timerText.name = "shelf"
-        text.materials.first?.diffuse.contents = UIColor.blackColor()
+        text.materials.first?.diffuse.contents = UIColor.black
     }
     
-    func saveHighscore(score:Int) {
+    func saveHighscore(_ score:Int) {
         
  
-        if GKLocalPlayer.localPlayer().authenticated {
+        if GKLocalPlayer.localPlayer().isAuthenticated {
             
             
             let scoreReporter = GKScore(leaderboardIdentifier: "LightningWordLeaderboard")
@@ -877,11 +877,11 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             
             let scoreArray: [GKScore] = [scoreReporter]
             
-            GKScore.reportScores(scoreArray, withCompletionHandler: {(error : NSError?) -> Void in
+            GKScore.report(scoreArray, withCompletionHandler: {(error : NSError?) -> Void in
                 if error != nil {
                     print("error!!!!!!!")
                 }
-            })
+            } as? (Error?) -> Void)
             
         }
         
