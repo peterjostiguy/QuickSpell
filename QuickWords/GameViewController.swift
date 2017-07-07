@@ -14,26 +14,31 @@ import GameKit
 
 
 
+
+
 class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerDelegate {
     
-
+    class func loadMatches(completionHandler: (([GKTurnBasedMatch]?, Error?) -> Void)? = nil){
+    
+    }
+    
     
     func updateMatchData(_ matchData: GKTurnBasedMatch) {
         print("HELLO!!!!")
         print(matchData.participants![1])
         let opponent = matchData.participants![1]
-       // matchData.endTurnWithNextParticipants([opponent], turnTimeout: GKTurnTimeoutDefault, matchData: matchData, completionHandler: nil)
+        matchData.endTurnWithNextParticipants([opponent], turnTimeout: GKTurnTimeoutDefault, matchData: matchData, completionHandler: nil)
         timer = Timer.scheduledTimer(timeInterval: timeInterval,
                                                        target: self,
                                                        selector: #selector(GameViewController.timerDidEnd(_:)),
                                                        userInfo: chosenWord,
                                                        repeats: true)
-        //currentMatch?.endTurnWithNextParticipants(
-        //[opponent()],
-        //turnTimeout: GKTurnTimeoutDefault,
-        // matchData: matchData,
-        //  completionHandler: nil
-        //  )
+        currentMatch?.endTurnWithNextParticipants(
+        [opponent()],
+        turnTimeout: GKTurnTimeoutDefault,
+         matchData: matchData,
+          completionHandler: nil
+          )
         
     }
     
@@ -106,8 +111,8 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
             matchRequest: r
         )
         vc.turnBasedMatchmakerDelegate = self
-//        self.presentViewController(vc, animated: true, completion: nil)
-//        self.dismissViewControllerAnimated(true, completion: nil)
+        self.present(vc, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
         
         
     
@@ -752,7 +757,7 @@ class GameViewController: UIViewController, GKTurnBasedMatchmakerViewControllerD
         let task = URLSession.shared.dataTask(with: request as URLRequest) {
             data, response, error in
             if error != nil{
-                print("error= \(error)")
+                print("error= \(String(describing: error))")
                 return
             }
             let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
